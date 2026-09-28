@@ -6,13 +6,13 @@ Sistema de gerenciamento de produtos e estoque desenvolvido em Python, criado co
 
 ### v0.1 — Produtos
 
-* [ ] Cadastrar produtos
-* [ ] Gerar ID automaticamente
-* [ ] Listar produtos
+* [x] Cadastrar produtos
+* [x] Gerar ID automaticamente
+* [x] Listar produtos
 * [ ] Consultar produto
 * [ ] Editar produto
 * [ ] Excluir produto
-* [ ] Salvar dados em arquivo
+* [x] Salvar dados em arquivo
 
 ### v0.2 — Estoque
 
