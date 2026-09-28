@@ -3,53 +3,33 @@
 from src.interface import *
 from src.produto import *
 
-arquivos = {"arqPRODUTOS": "PRODUTOS"}
+arquivos = {"PRODUTOS.txt": "PRODUTOS.txt"}
 
-for arq in opc_principal:
-    if arq != opc_principal[-1]:
-        arquivoCRIAR(arq)
+for arq in arquivos.values():
+    arquivoCRIAR(arq)
 
 while True:
 
     resp = menu("DATA VAULT", opc_principal)
-    clear()
 
     if resp == 1:
         while True:
-            resp = menu(opc_principal[1 - 1], opc_produtos)
-            clear()
+            resp = menu(opc_principal["PRODUTOS"], opc_produtos)
 
             if resp == 1:
-                cabecalho(opc_produtos[resp - 1])
-                nome = str(input("NOME: "))
-                tipo = str(input("TIPO: "))
-                valor = str(input("VALOR: R$").replace(",", "."))
-                estoque = int(input("ESTOQUE ATUAL: "))
-                estoque_min = int(input("ESTOQUE MÍNIMO: "))
-                AD_PRODUTO(
-                    arquivos["arqPRODUTOS"],
-                    nome,
-                    tipo,
-                    float(valor),
-                    estoque,
-                    estoque_min,
-                )
-                clear()
+                AD_PRODUTO("PRODUTOS.txt")
+
             elif resp == 2:
-                cabecalho(opc_produtos[resp - 1])
-                LER_PRODUTO(arquivos["arqPRODUTOS"])
-                input("\n[Enter] para voltar...")
-                clear()
+                LER_PRODUTO(arquivos["PRODUTOS.txt"])
+
             elif resp == 3:
                 break
-            else:
-                input("Valor inválido, pressione Enter para tentar novamente...")
-                clear()
 
+            else:
+                VALOR_N_EXISTE()
     elif resp == 2:
-        clear()
         sair()
         break
 
     else:
-        input("Valor inválido, pressione Enter para tentar novamente...")
+        VALOR_N_EXISTE()

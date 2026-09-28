@@ -3,9 +3,13 @@ from os import system
 
 # ====================== > > LISTAS < < ============================
 
-opc_produtos = ["CADASTRAR PRODUTO", "VER PRODUTOS", "VOLTAR AO MENU"]
+opc_produtos = {
+    "CADASTRAR PRODUTO": "CADASTRAR PRODUTO",
+    "LISTAR PRODUTOS": "LISTAR PRODUTOS",
+    "VOLTAR AO MENU": "VOLTAR AO MENU",
+}
 
-opc_principal = ["PRODUTOS", "SAIR"]
+opc_principal = {"PRODUTOS": "PRODUTOS", "SAIR": "SAIR"}
 
 
 # ==================================================================
@@ -50,10 +54,14 @@ def menu(título, opcoes):
     """
 
     cabecalho(título)
-    for k, v in enumerate(opcoes):
-        print(f"[{k + 1}] {v}")
+    c = 1
+    for v in opcoes.values():
+        print(f"[{c}] {v}")
+        c += 1
     linha()
-    return int(input("\nSua opção: "))
+    r = int(input("\nSua opção: "))
+    clear()
+    return r
 
 
 # ==================================================================
@@ -64,9 +72,10 @@ def sair():
     """
     -> Usado para sair do programa principal com elegância
     """
+    clear()
     etc = "."
     for c in range(3):
-        print(f"SAINDO DO PROGRMA{etc}")
+        print(f"SAINDO DO PROGRAMA{etc}")
         etc += "."
         sleep(1)
         system("cls")
@@ -87,3 +96,8 @@ def clear():
 
 # ==================================================================
 # ==================================================================
+
+
+def VALOR_N_EXISTE():
+    input("Valor inválido, pressione Enter para tentar novamente...")
+    clear()

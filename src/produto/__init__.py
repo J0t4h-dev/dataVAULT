@@ -1,27 +1,42 @@
+from src.interface import *
+
 # ==================================================================
 # ==================================================================
 
 
 def LER_PRODUTO(arq):
+    cabecalho(opc_produtos["LISTAR PRODUTOS"])
     print(
         f"{'ID':>4}|{'NOME':<20}|{'TIPO':<12}|{'VALOR':>10}|{'ESTOQUE':>10}|{'ESTOQUE MÍNIMO':>15}"
     )
-    with open(formatTXT(arq), "r", encoding="utf-8") as arquivo:
+    with open(arq, "r", encoding="utf-8") as arquivo:
         for linha in arquivo:
             dado = linha.strip().split(";")
             print(
                 f"{dado[0]:>4}|{dado[1]:<20}|{dado[2]:<12}|{dado[3].replace('.', ','):>10}|{dado[4]:>10}|{dado[5]:>15}"
             )
+    input("\n[Enter] para voltar...")
+    clear()
 
 
 # ==================================================================
 # ==================================================================
 
 
-def AD_PRODUTO(arq, nome, tipo, valor, estoque, estoque_min):
-    with open(formatTXT(arq), "a+", encoding="utf-8") as arquivo:
-        id = id_auto(arq)
-        arquivo.write(f"{id};{nome};{tipo};R${valor:.2f};{estoque};{estoque_min}\n")
+def AD_PRODUTO(arq):
+    with open(arq, "a+", encoding="utf-8") as arquivo:
+        cabecalho(opc_produtos["CADASTRAR PRODUTO"])
+        nome = str(input("NOME: "))
+        tipo = str(input("TIPO: "))
+        valor = str(input("VALOR: R$").replace(",", "."))
+        estoque = int(input("ESTOQUE ATUAL: "))
+        estoque_min = int(input("ESTOQUE MÍNIMO: "))
+        clear()
+        id_produto = id_auto(arq)
+        arquivo.write(
+            f"{int(id_produto)};{str(nome)};{str(tipo)};R${float(valor):.2f};{str(estoque)};{str(estoque_min)}\n"
+        )
+    clear()
 
 
 # ==================================================================
@@ -30,20 +45,12 @@ def AD_PRODUTO(arq, nome, tipo, valor, estoque, estoque_min):
 
 def arquivoCRIAR(arq):
     try:
-        open(formatTXT(arq), "r")
+        open(arq, "r")
     except FileNotFoundError:
-        with open(formatTXT(arq), "x") as arquivo:
-            print(f"{formatTXT(arq)} foi criado!")
+        with open(arq, "x") as arquivo:
+            print(f"{arq} foi criado!")
     else:
-        print(f"O arquivo {formatTXT(arq)} já existe!")
-
-
-# ==================================================================
-# ==================================================================
-
-
-def formatTXT(arq):
-    return f"{arq}.txt"
+        print(f"O arquivo {arq} já existe!")
 
 
 # ==================================================================
@@ -51,7 +58,7 @@ def formatTXT(arq):
 
 
 def id_auto(arq):
-    with open(formatTXT(arq), "r", encoding="utf-8") as arquivo:
+    with open(arq, "r", encoding="utf-8") as arquivo:
         linhas = arquivo.readlines()
         id_s = list()
         for linha in linhas:
