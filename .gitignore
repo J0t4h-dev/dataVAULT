@@ -2,3 +2,4 @@ PRODUTOS.txt
 PRODUTOS.txt
 *.pyc
 /tests
+__pycache__/
